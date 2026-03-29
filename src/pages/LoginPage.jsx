@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-const API_URL = 'https://netflix-clone-pi-olive.vercel.app'; // Your backend URL
+const API_URL = 'https://netflix-clone-pi-olive.vercel.app';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
