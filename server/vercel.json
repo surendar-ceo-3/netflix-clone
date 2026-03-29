@@ -1,13 +1,6 @@
 {
   "builds": [
     {
-      "src": "client/**",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "client/dist"
-      }
-    },
-    {
       "src": "server/api.js",
       "use": "@vercel/node"
     }
@@ -19,7 +12,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/client/dist/$1"
+      "dest": "/server/api.js"
     }
   ]
 }

@@ -5,7 +5,11 @@ app.use(express.json());
 
 // Test endpoint
 app.get('/api/test', (req, res) => {
-  res.json({ message: 'Backend is working!', status: 'active' });
+  res.json({ 
+    message: 'Backend is working!', 
+    status: 'active',
+    time: new Date().toISOString()
+  });
 });
 
 // Login endpoint
@@ -15,7 +19,11 @@ app.post('/api/auth/login', (req, res) => {
   if (email === 'test@example.com' && password === 'password123') {
     res.json({ 
       success: true, 
-      user: { id: 1, name: 'Test User', email } 
+      user: { 
+        id: 1, 
+        name: 'Test User', 
+        email: email 
+      } 
     });
   } else {
     res.status(401).json({ 
@@ -39,9 +47,21 @@ app.post('/api/auth/register', (req, res) => {
   res.json({ 
     success: true, 
     token: 'dummy-token',
-    user: { id: Date.now(), name, email } 
+    user: { 
+      id: Date.now(), 
+      name, 
+      email 
+    } 
   });
 });
 
-// Export for Vercel serverless
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Netflix Clone API',
+    version: '1.0.0',
+    author: 'Surendar'
+  });
+});
+
 module.exports = app;
