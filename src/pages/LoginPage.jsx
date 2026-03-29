@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
+const API_URL = 'https://netflix-clone-pi-olive.vercel.app'; // Your backend URL
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,13 +18,21 @@ const LoginPage = () => {
     setError('');
     setLoading(true);
 
-    const result = await login(email, password);
-    if (result.success) {
-      navigate('/browse');
-    } else {
-      setError(result.error || 'Invalid credentials');
+    try {
+      const response = await axios.post(`${API_URL}/api/auth/login`, {
+        email,
+        password
+      });
+      
+      if (response.data.success) {
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        navigate('/browse');
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || 'Login failed');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
